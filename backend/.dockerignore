@@ -1,0 +1,11 @@
+target/
+.env
+*.swp
+*.swo
+*~
+.DS_Store
+.git/
+.gitignore
+# Keep .sqlx directory - it's needed for offline SQLx builds
+!.sqlx/
+

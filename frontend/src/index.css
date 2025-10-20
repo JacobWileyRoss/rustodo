@@ -1,25 +1,62 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background: rgb(var(--bg));
+  --color-surface-panel: rgb(var(--surface-1));
+  --color-surface-task: rgb(var(--surface-2));
+  --color-border: rgb(var(--border));
+  --color-header-bg: rgb(var(--header));
+  --color-foreground: rgb(var(--text));
+  --color-neutral: rgb(var(--muted));
+  --color-primary: rgb(var(--primary));
+  --color-accent: rgb(var(--accent));
+  --color-secondary: rgb(var(--secondary));
+  --color-edit: rgb(var(--edit));
+  --color-edit-hover: rgb(var(--edit-hover));
+  --color-is-editing: rgb(var(--editing));
+  --color-save: rgb(var(--success));
+  --color-save-hover: rgb(var(--success-hover));
+  --color-delete: rgb(var(--danger));
+  --color-delete-hover: rgb(var(--danger-hover));
+
+  --font-family-jetbrains: 'JetBrains Mono', monospace;
+}
+
 :root {
   width: 100%;
   height: 100%;
   padding: 0;
   margin: 0;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: hidden !important;
   overscroll-behavior: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
-*, *::before, *::after {
+#root {
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: inherit;
 }

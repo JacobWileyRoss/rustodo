@@ -1,27 +1,32 @@
 import useAxios from './useAxios';
 import { ENDPOINTS } from '../config';
 
-const useAddTask = () => {
-    const { data, loading, error, sendRequest } = useAxios();
+interface UseAddTaskReturn {
+  addTask: (description: string) => Promise<string>;
+  loading: boolean;
+  error: string | null;
+}
 
-    const addTask = async (description) => {
-        const response = await sendRequest({
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: {task: description},
-            url: ENDPOINTS.ADD_TASK,
-        });
-        return response.data.tasks;
-    };
+const useAddTask = (): UseAddTaskReturn => {
+  const { loading, error, sendRequest } = useAxios();
 
-    return {
-        addTask,
-        data,
-        loading,
-        error
-    };
+  const addTask = async (description: string): Promise<string> => {
+    const response = await sendRequest({
+      method: 'POST',
+      url: ENDPOINTS.ADD_TASK,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: { task: description },
+    });
+    return response.data.message;
+  };
+
+  return {
+    addTask,
+    loading,
+    error,
+  };
 };
 
-export default useAddTask
+export default useAddTask;

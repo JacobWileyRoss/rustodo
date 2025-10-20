@@ -1,0 +1,83 @@
+/* === Rosé Pine Dark Theme - Natural & Elegant === */
+
+/* Legacy color format (for backwards compatibility) */
+:root {
+    /* Surfaces - Rosé Pine base tones */
+    --color-background:         #191724;   /* base - deep purple background */
+    --color-header-bg:          #1f1d2e;   /* surface - elevated header */
+    --color-surface-panel:      #1f1d2e;   /* surface - panels */
+    --color-surface-task:       #26233a;   /* overlay - task cards */
+    --color-border:             #403d52;   /* muted - borders */
+
+    /* Typography - Rosé Pine text tones */
+    --color-foreground:         #e0def4;   /* text - soft white */
+    --color-neutral:            #908caa;   /* subtle - muted text */
+
+    /* Brand & Accents - Rosé Pine accent colors */
+    --color-primary:            #ebbcba;   /* rose - soft pink primary */
+    --color-accent:             #f6c177;   /* gold - warm accent */
+    --color-secondary:          #eb6f92;   /* love - deeper rose */
+
+    /* Action states */
+    --color-edit:               #26233a;   /* overlay */
+    --color-edit-hover:         #403d52;   /* muted */
+    --color-is-editing:         #9ccfd8;   /* foam - cyan focus */
+
+    --color-save:               #9ccfd8;   /* foam - cyan success */
+    --color-save-hover:         #31748f;   /* pine - darker teal */
+
+    --color-delete:             #eb6f92;   /* love - rose red */
+    --color-delete-hover:       #b4637a;   /* love-dark */
+}
+
+/* Modern RGB format (for Tailwind alpha support) */
+:root {
+    /* Surfaces - Rosé Pine base tones */
+    --bg:             25 23 36;      /* #191724 - base */
+    --header:         31 29 46;      /* #1f1d2e - surface */
+    --surface-1:      31 29 46;      /* #1f1d2e - surface */
+    --surface-2:      38 35 58;      /* #26233a - overlay */
+    --border:         64 61 82;      /* #403d52 - muted */
+
+    /* Typography - Rosé Pine text tones */
+    --text:           224 222 244;   /* #e0def4 - text */
+    --muted:          144 140 170;   /* #908caa - subtle */
+
+    /* Brand & Accents - Rosé Pine accent colors */
+    --primary:        235 188 186;   /* #ebbcba - rose */
+    --accent:         246 193 119;   /* #f6c177 - gold */
+    --secondary:      235 111 146;   /* #eb6f92 - love */
+
+    /* Action states */
+    --edit:           38 35 58;      /* #26233a - overlay */
+    --edit-hover:     64 61 82;      /* #403d52 - muted */
+    --editing:        156 207 216;   /* #9ccfd8 - foam */
+
+    --success:        156 207 216;   /* #9ccfd8 - foam */
+    --success-hover:  49 116 143;    /* #31748f - pine */
+
+    --danger:         235 111 146;   /* #eb6f92 - love */
+    --danger-hover:   180 99 122;    /* love-dark */
+}
+
+/* Rosé Pine Dark Background */
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+}
+
+/* Scrollbar (WebKit) - Rosé Pine style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--surface-1));
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--primary));
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--secondary));
+}
+

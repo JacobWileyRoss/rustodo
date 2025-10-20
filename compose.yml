@@ -1,0 +1,64 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: rustodo-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rustodo_root_password}
+      MYSQL_DATABASE: rustodo
+      MYSQL_USER: ${MYSQL_USER:-rustodo_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-rustodo_password}
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - rustodo-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: rustodo-backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: mysql://${MYSQL_USER:-rustodo_user}:${MYSQL_PASSWORD:-rustodo_password}@db:3306/rustodo
+      RUST_LOG: ${RUST_LOG:-info}
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - rustodo-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:3000}
+    container_name: rustodo-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      - backend
+    networks:
+      - rustodo-network
+
+volumes:
+  db-data:
+    driver: local
+
+networks:
+  rustodo-network:
+    driver: bridge
+

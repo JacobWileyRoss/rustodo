@@ -1,0 +1,83 @@
+/* === Solarized Dark Theme - Precision Colors for Readability === */
+
+/* Legacy color format (for backwards compatibility) */
+:root {
+    /* Surfaces - Solarized Dark base tones */
+    --color-background:         #002b36;   /* base03 - deep blue-green background */
+    --color-header-bg:          #073642;   /* base02 - elevated header */
+    --color-surface-panel:      #073642;   /* base02 - panels */
+    --color-surface-task:       #073642;   /* base02 - task cards */
+    --color-border:             #586e75;   /* base01 - borders */
+
+    /* Typography - Solarized content tones */
+    --color-foreground:         #839496;   /* base0 - primary text */
+    --color-neutral:            #586e75;   /* base01 - muted text */
+
+    /* Brand & Accents - Solarized accent colors */
+    --color-primary:            #268bd2;   /* blue - primary brand */
+    --color-accent:             #b58900;   /* yellow - warm accent */
+    --color-secondary:          #2aa198;   /* cyan - secondary */
+
+    /* Action states */
+    --color-edit:               #073642;   /* base02 */
+    --color-edit-hover:         #586e75;   /* base01 */
+    --color-is-editing:         #268bd2;   /* blue */
+
+    --color-save:               #859900;   /* green */
+    --color-save-hover:         #719100;   /* green-dark */
+
+    --color-delete:             #dc322f;   /* red */
+    --color-delete-hover:       #cb4b16;   /* orange-red */
+}
+
+/* Modern RGB format (for Tailwind alpha support) */
+:root {
+    /* Surfaces - Solarized Dark base tones */
+    --bg:             0 43 54;       /* #002b36 - base03 */
+    --header:         7 54 66;       /* #073642 - base02 */
+    --surface-1:      7 54 66;       /* #073642 - base02 */
+    --surface-2:      7 54 66;       /* #073642 - base02 */
+    --border:         88 110 117;    /* #586e75 - base01 */
+
+    /* Typography - Solarized content tones */
+    --text:           131 148 150;   /* #839496 - base0 */
+    --muted:          88 110 117;    /* #586e75 - base01 */
+
+    /* Brand & Accents - Solarized accent colors */
+    --primary:        38 139 210;    /* #268bd2 - blue */
+    --accent:         181 137 0;     /* #b58900 - yellow */
+    --secondary:      42 161 152;    /* #2aa198 - cyan */
+
+    /* Action states */
+    --edit:           7 54 66;       /* #073642 - base02 */
+    --edit-hover:     88 110 117;    /* #586e75 - base01 */
+    --editing:        38 139 210;    /* #268bd2 - blue */
+
+    --success:        133 153 0;     /* #859900 - green */
+    --success-hover:  113 145 0;     /* darker green */
+
+    --danger:         220 50 47;     /* #dc322f - red */
+    --danger-hover:   203 75 22;     /* #cb4b16 - orange-red */
+}
+
+/* Solarized Dark Background */
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+}
+
+/* Scrollbar (WebKit) - Solarized style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--surface-1));
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--primary));
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--secondary));
+}
+

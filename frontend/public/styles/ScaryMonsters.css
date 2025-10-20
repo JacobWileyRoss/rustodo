@@ -1,0 +1,83 @@
+/* === Scary Monsters Theme - Inspired by Skrillex === */
+
+/* Legacy color format (for backwards compatibility) */
+:root {
+    /* Surfaces - Dark aggressive base */
+    --color-background:         #000000;   /* Pure black - aggressive dark */
+    --color-header-bg:          #0a0a0a;   /* Almost black header */
+    --color-surface-panel:      #050505;   /* Very dark for completed tasks */
+    --color-surface-task:       #1a1a1a;   /* Dark gray task cards */
+    --color-border:             #39ff14;   /* Neon green borders */
+
+    /* Typography - High contrast */
+    --color-foreground:         #e0e0e0;   /* Bright gray text */
+    --color-neutral:            #808080;   /* Muted gray */
+
+    /* Brand & Accents - Skrillex neon vibes */
+    --color-primary:            #39ff14;   /* Electric neon green - signature */
+    --color-accent:             #ff0000;   /* Electric red */
+    --color-secondary:          #00ffff;   /* Electric cyan */
+
+    /* Action states */
+    --color-edit:               #1a1a1a;   /* Dark gray */
+    --color-edit-hover:         #2a2a2a;   /* Slightly lighter */
+    --color-is-editing:         #39ff14;   /* Neon green focus */
+
+    --color-save:               #39ff14;   /* Neon green success */
+    --color-save-hover:         #2ce60f;   /* Brighter green */
+
+    --color-delete:             #ff0000;   /* Electric red error */
+    --color-delete-hover:       #ff3333;   /* Bright red */
+}
+
+/* Modern RGB format (for Tailwind alpha support) */
+:root {
+    /* Surfaces - Dark aggressive base */
+    --bg:             0 0 0;         /* Pure black */
+    --header:         10 10 10;      /* Almost black header */
+    --surface-1:      5 5 5;         /* Very dark for completed */
+    --surface-2:      26 26 26;      /* Dark gray task cards */
+    --border:         57 255 20;     /* Neon green borders */
+
+    /* Typography - High contrast */
+    --text:           224 224 224;   /* Bright gray text */
+    --muted:          128 128 128;   /* Muted gray */
+
+    /* Brand & Accents - Skrillex neon vibes */
+    --primary:        57 255 20;     /* Electric neon green */
+    --accent:         255 0 0;       /* Electric red */
+    --secondary:      0 255 255;     /* Electric cyan */
+
+    /* Action states */
+    --edit:           26 26 26;      /* Dark gray */
+    --edit-hover:     42 42 42;      /* Slightly lighter */
+    --editing:        57 255 20;     /* Neon green focus */
+
+    --success:        57 255 20;     /* Neon green success */
+    --success-hover:  44 230 15;     /* Brighter green */
+
+    --danger:         255 0 0;       /* Electric red error */
+    --danger-hover:   255 51 51;     /* Bright red */
+}
+
+/* Scary Monsters Background */
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+}
+
+/* Scrollbar (WebKit) - Electric style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--surface-1));
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--primary));
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--accent));
+}
+

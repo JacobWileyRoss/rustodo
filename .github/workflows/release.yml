@@ -1,0 +1,199 @@
+name: Build and Push Docker Images
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build (e.g., v1.0.0)'
+        required: true
+        type: string
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME_BACKEND: ${{ github.repository }}-backend
+  IMAGE_NAME_FRONTEND: ${{ github.repository }}-frontend
+
+jobs:
+  build-and-push-backend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Docker (backend)
+        id: meta-backend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push backend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: ${{ steps.meta-backend.outputs.tags }}
+          labels: ${{ steps.meta-backend.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+
+  build-and-push-frontend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata for Docker (frontend)
+        id: meta-frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push frontend Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          file: ./frontend/Dockerfile
+          push: true
+          tags: ${{ steps.meta-frontend.outputs.tags }}
+          labels: ${{ steps.meta-frontend.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+          build-args: |
+            VITE_API_BASE_URL=http://localhost:3000
+
+  update-compose-file:
+    runs-on: ubuntu-latest
+    needs: [build-and-push-backend, build-and-push-frontend]
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get release tag
+        id: get_tag
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "tag=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create production compose file
+        run: |
+          TAG=${{ steps.get_tag.outputs.tag }}
+          cat > compose.prod.yml << EOF
+          # Production Docker Compose file for Rustodo
+          # This file uses pre-built images from GitHub Container Registry
+          
+          services:
+            db:
+              image: mysql:8.4
+              container_name: rustodo-db
+              restart: unless-stopped
+              environment:
+                MYSQL_ROOT_PASSWORD: \${MYSQL_ROOT_PASSWORD:-rustodo_root_password}
+                MYSQL_DATABASE: rustodo
+                MYSQL_USER: \${MYSQL_USER:-rustodo_user}
+                MYSQL_PASSWORD: \${MYSQL_PASSWORD:-rustodo_password}
+              volumes:
+                - db-data:/var/lib/mysql
+              healthcheck:
+                test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p\$\$MYSQL_ROOT_PASSWORD"]
+                interval: 10s
+                timeout: 5s
+                retries: 5
+                start_period: 30s
+              networks:
+                - rustodo-network
+          
+            backend:
+              image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_BACKEND }}:${TAG}
+              container_name: rustodo-backend
+              restart: unless-stopped
+              environment:
+                DATABASE_URL: mysql://\${MYSQL_USER:-rustodo_user}:\${MYSQL_PASSWORD:-rustodo_password}@db:3306/rustodo
+                RUST_LOG: info
+              ports:
+                - "3000:3000"
+              depends_on:
+                db:
+                  condition: service_healthy
+              networks:
+                - rustodo-network
+          
+            frontend:
+              image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME_FRONTEND }}:${TAG}
+              container_name: rustodo-frontend
+              restart: unless-stopped
+              ports:
+                - "8080:80"
+              depends_on:
+                - backend
+              networks:
+                - rustodo-network
+          
+          volumes:
+            db-data:
+              driver: local
+          
+          networks:
+            rustodo-network:
+              driver: bridge
+          EOF
+
+      - name: Upload compose file as release asset
+        if: github.event_name == 'release'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./compose.prod.yml
+          asset_name: compose.prod.yml
+          asset_content_type: text/yaml
+

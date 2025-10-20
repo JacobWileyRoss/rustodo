@@ -1,0 +1,82 @@
+/* === Modern Light Theme - Material Design Inspired === */
+
+/* Legacy color format (for backwards compatibility) */
+:root {
+    /* Surfaces - Material Design elevation system */
+    --color-background:         #fafafa;   /* Material Light - base */
+    --color-header-bg:          #ffffff;   /* Elevated surface */
+    --color-surface-panel:      #ffffff;   /* Elevated surface */
+    --color-surface-task:       #f5f5f5;   /* Card surface */
+    --color-border:             #e0e0e0;   /* Subtle borders */
+
+    /* Typography - Material Design text hierarchy */
+    --color-foreground:         #212121;   /* High emphasis text */
+    --color-neutral:            #757575;   /* Medium emphasis text */
+
+    /* Brand & Accents */
+    --color-primary:            #ff6b6b;   /* Primary brand color */
+    --color-accent:             #ffa726;   /* Warm accent (Material orange) */
+    --color-secondary:          #ff5252;   /* Secondary brand variant */
+
+    /* Action states */
+    --color-edit:               #f5f5f5;   /* Edit background */
+    --color-edit-hover:         #eeeeee;   /* Edit hover */
+    --color-is-editing:         #ff6b6b;   /* Editing indicator */
+
+    --color-save:               #66bb6a;   /* Success (Material green) */
+    --color-save-hover:         #4caf50;   /* Success hover */
+
+    --color-delete:             #ef5350;   /* Error (Material red) */
+    --color-delete-hover:       #e53935;   /* Error hover */
+}
+
+/* Modern RGB format (for Tailwind alpha support) */
+:root {
+    /* Surfaces - Material Design elevation system */
+    --bg:             250 250 250;   /* #fafafa - Material Light base */
+    --header:         255 255 255;   /* #ffffff - Elevated surface */
+    --surface-1:      255 255 255;   /* #ffffff - Elevated surface */
+    --surface-2:      245 245 245;   /* #f5f5f5 - Card surface */
+    --border:         224 224 224;   /* #e0e0e0 - Subtle borders */
+
+    /* Typography - Material Design text hierarchy */
+    --text:           33 33 33;      /* #212121 - High emphasis text */
+    --muted:          117 117 117;   /* #757575 - Medium emphasis text */
+
+    /* Brand & Accents */
+    --primary:        255 107 107;   /* #ff6b6b - Primary brand color */
+    --accent:         255 167 38;    /* #ffa726 - Warm accent */
+    --secondary:      255 82 82;     /* #ff5252 - Secondary brand variant */
+
+    /* Action states */
+    --edit:           245 245 245;   /* #f5f5f5 - Edit background */
+    --edit-hover:     238 238 238;   /* #eeeeee - Edit hover */
+    --editing:        255 107 107;   /* #ff6b6b - Editing indicator */
+
+    --success:        102 187 106;   /* #66bb6a - Success */
+    --success-hover:  76 175 80;     /* #4caf50 - Success hover */
+
+    --danger:         239 83 80;     /* #ef5350 - Error */
+    --danger-hover:   229 57 53;     /* #e53935 - Error hover */
+}
+
+/* Light Background */
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+}
+
+/* Scrollbar (WebKit) - Material Design style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--surface-1));
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--primary) / 0.6);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--primary));
+}

@@ -1,0 +1,82 @@
+/* === Gruvbox Dark Theme - Retro Groove with Warm Tones === */
+
+/* Legacy color format (for backwards compatibility) */
+:root {
+    /* Surfaces - Gruvbox elevation system */
+    --color-background:         #1d2021;   /* bg0_h - hard contrast bg */
+    --color-header-bg:          #282828;   /* bg0 - header */
+    --color-surface-panel:      #282828;   /* bg0 - panels */
+    --color-surface-task:       #3c3836;   /* bg1 - task cards */
+    --color-border:             #504945;   /* bg2 - borders */
+
+    /* Typography - Gruvbox warm palette */
+    --color-foreground:         #ebdbb2;   /* fg - warm white */
+    --color-neutral:            #bdae93;   /* fg2 - medium emphasis */
+
+    /* Brand & Accents - Authentic Gruvbox */
+    --color-primary:            #fe8019;   /* orange - Gruvbox signature */
+    --color-accent:             #fabd2f;   /* yellow - warm accent */
+    --color-secondary:          #d65d0e;   /* orange-dark - secondary */
+
+    /* Action states */
+    --color-edit:               #3c3836;   /* bg1 */
+    --color-edit-hover:         #504945;   /* bg2 */
+    --color-is-editing:         #83a598;   /* blue */
+
+    --color-save:               #b8bb26;   /* bright green */
+    --color-save-hover:         #98971a;   /* green */
+
+    --color-delete:             #fb4934;   /* bright red */
+    --color-delete-hover:       #cc241d;   /* red */
+}
+
+/* Modern RGB format (for Tailwind alpha support) */
+:root {
+    /* Surfaces - Gruvbox elevation system */
+    --bg:             29 32 33;      /* #1d2021 - bg0_h */
+    --header:         40 40 40;      /* #282828 - bg0 */
+    --surface-1:      40 40 40;      /* #282828 - bg0 */
+    --surface-2:      60 56 54;      /* #3c3836 - bg1 */
+    --border:         80 73 69;      /* #504945 - bg2 */
+
+    /* Typography - Gruvbox warm palette */
+    --text:           235 219 178;   /* #ebdbb2 - fg */
+    --muted:          189 174 147;   /* #bdae93 - fg2 */
+
+    /* Brand & Accents - Authentic Gruvbox */
+    --primary:        254 128 25;    /* #fe8019 - orange */
+    --accent:         250 189 47;    /* #fabd2f - yellow */
+    --secondary:      214 93 14;     /* #d65d0e - orange-dark */
+
+    /* Action states */
+    --edit:           60 56 54;      /* #3c3836 - bg1 */
+    --edit-hover:     80 73 69;      /* #504945 - bg2 */
+    --editing:        131 165 152;   /* #83a598 - blue */
+
+    --success:        184 187 38;    /* #b8bb26 - bright green */
+    --success-hover:  152 151 26;    /* #98971a - green */
+
+    --danger:         251 73 52;     /* #fb4934 - bright red */
+    --danger-hover:   204 36 29;     /* #cc241d - red */
+}
+
+/* Gruvbox Background */
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+}
+
+/* Scrollbar (WebKit) - Gruvbox style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--surface-1));
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--primary));
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--accent));
+}

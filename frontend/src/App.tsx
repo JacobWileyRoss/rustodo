@@ -1,14 +1,12 @@
 import './App.css';
-import './layouts/DashboardLayout/DashboardLayout';
 import DashboardLayout from './layouts/DashboardLayout/DashboardLayout';
 
-function App() {
-
+const App = () => {
   return (
-    <div className="">
+    <div className="h-full w-full overflow-hidden">
       <DashboardLayout />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

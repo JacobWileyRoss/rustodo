@@ -5,7 +5,7 @@ use tower_http::{
     trace::TraceLayer
 };
 use tracing::{info};
-use std::net::SocketAddr;
+use std::net::{IpAddr, Ipv4Addr, SocketAddr};
 use crate::config::env;
 use crate::state::app::AppState;
 
@@ -38,8 +38,10 @@ async fn main() {
         .with_state(state)
         .layer(cors)
         .layer(TraceLayer::new_for_http());
+    let port = 3000;
+    let socket = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(0, 0, 0, 0)), port);
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
-    info!("Server listening on port 3000!");
+    let listener = tokio::net::TcpListener::bind(socket).await.unwrap();
+    info!("Server listening on {}!", socket);
     axum::serve(listener, app).await.unwrap();
 }

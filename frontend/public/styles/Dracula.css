@@ -1,0 +1,83 @@
+/* === Dracula Theme - Official Dark Theme === */
+
+/* Legacy color format (for backwards compatibility) */
+:root {
+    /* Surfaces - Dracula base tones */
+    --color-background:         #282a36;   /* background - Dracula purple-gray */
+    --color-header-bg:          #343746;   /* elevated header */
+    --color-surface-panel:      #21222c;   /* darker for completed tasks */
+    --color-surface-task:       #44475a;   /* current-line - task cards */
+    --color-border:             #6272a4;   /* comment - borders */
+
+    /* Typography - Dracula text tones */
+    --color-foreground:         #f8f8f2;   /* foreground - bright white */
+    --color-neutral:            #6272a4;   /* comment - muted text */
+
+    /* Brand & Accents - Dracula accent colors */
+    --color-primary:            #ff79c6;   /* pink - vibrant primary */
+    --color-accent:             #f1fa8c;   /* yellow - bright accent */
+    --color-secondary:          #bd93f9;   /* purple - secondary */
+
+    /* Action states */
+    --color-edit:               #44475a;   /* current-line */
+    --color-edit-hover:         #6272a4;   /* comment */
+    --color-is-editing:         #8be9fd;   /* cyan - focus */
+
+    --color-save:               #50fa7b;   /* green - bright success */
+    --color-save-hover:         #5af78e;   /* green-bright */
+
+    --color-delete:             #ff5555;   /* red - vibrant error */
+    --color-delete-hover:       #ff6e6e;   /* red-light */
+}
+
+/* Modern RGB format (for Tailwind alpha support) */
+:root {
+    /* Surfaces - Dracula base tones */
+    --bg:             40 42 54;      /* #282a36 - background */
+    --header:         52 55 70;      /* #343746 - elevated header */
+    --surface-1:      33 34 44;      /* #21222c - darker for completed */
+    --surface-2:      68 71 90;      /* #44475a - current-line */
+    --border:         98 114 164;    /* #6272a4 - comment */
+
+    /* Typography - Dracula text tones */
+    --text:           248 248 242;   /* #f8f8f2 - foreground */
+    --muted:          98 114 164;    /* #6272a4 - comment */
+
+    /* Brand & Accents - Dracula accent colors */
+    --primary:        255 121 198;   /* #ff79c6 - pink */
+    --accent:         241 250 140;   /* #f1fa8c - yellow */
+    --secondary:      189 147 249;   /* #bd93f9 - purple */
+
+    /* Action states */
+    --edit:           68 71 90;      /* #44475a - current-line */
+    --edit-hover:     98 114 164;    /* #6272a4 - comment */
+    --editing:        139 233 253;   /* #8be9fd - cyan */
+
+    --success:        80 250 123;    /* #50fa7b - green */
+    --success-hover:  90 247 142;    /* green-bright */
+
+    --danger:         255 85 85;     /* #ff5555 - red */
+    --danger-hover:   255 110 110;   /* red-light */
+}
+
+/* Dracula Background */
+body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--text));
+}
+
+/* Scrollbar (WebKit) - Dracula style */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgb(var(--surface-1));
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--primary));
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--secondary));
+}
+

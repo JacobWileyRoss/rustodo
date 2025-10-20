@@ -1,0 +1,21 @@
+.git/
+.github/
+.gitignore
+.env
+.env.local
+*.md
+!DOCKER.md
+.DS_Store
+.idea/
+.vscode/
+
+# Backend
+backend/target/
+backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
